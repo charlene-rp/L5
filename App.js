@@ -242,143 +242,29 @@
 // ========================== Exercise 3 ====================================
 
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  SectionList,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './Home.js';
+import Add from './Add.js';
+import Edit from './Edit.js';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  // Pokémon Data
-  const pokemonData = [
-    {
-      title: 'Fire 🔥',
-      data: [
-        {
-          name: 'Charmander',
-          imageUrl:
-              'https://dz3we2x72f7ol.cloudfront.net/expansions/151/en-us/SV3pt5_EN_4-2x.png',
-        },
-        {
-          name: 'Charizard',
-          imageUrl:
-              'https://dz3we2x72f7ol.cloudfront.net/expansions/151/en-us/SV3pt5_EN_6-2x.png',
-        },
-      ],
-    },
-    {
-      title: 'Lightning ⚡',
-      data: [
-        {
-          name: 'Pikachu',
-          imageUrl:
-              'https://dz3we2x72f7ol.cloudfront.net/expansions/151/en-us/SV3pt5_EN_25-2x.png',
-        },
-        {
-          name: 'Raichu',
-          imageUrl:
-              'https://dz3we2x72f7ol.cloudfront.net/expansions/151/en-us/SV3pt5_EN_26-2x.png',
-        },
-      ],
-    },
-    {
-      title: 'Fighting 🥊',
-      data: [
-        {
-          name: 'Machop',
-          imageUrl:
-              'https://dz3we2x72f7ol.cloudfront.net/expansions/151/en-us/SV3pt5_EN_66-2x.png',
-        },
-        {
-          name: 'Machamp',
-          imageUrl:
-              'https://dz3we2x72f7ol.cloudfront.net/expansions/151/en-us/SV3pt5_EN_68-2x.png',
-        },
-      ],
-    },
-  ];
-
-  const handlePress = (pokemon) => {
-    alert(`You clicked on ${pokemon.name}`);
-  };
-
-  return (
-      <View style={styles.container}>
-        {/* Add Pokémon Button */}
-        <Button title="Add Pokémon" onPress={() => alert('Add Pokémon pressed')} />
-
-        {/* Pokémon Section List */}
-        <SectionList
-            sections={pokemonData}
-            keyExtractor={(item, index) => item.name + index}
-            renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handlePress(item)} style={styles.item}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Image source={{ uri: item.imageUrl }} style={styles.image} />
-                </TouchableOpacity>
-            )}
-            renderSectionHeader={({ section }) => (
-                <View style={[styles.header, { backgroundColor: getElementColor(section.title) }]}>
-                  <Text style={styles.headerText}>{section.title}</Text>
-                </View>
-            )}
-        />
-      </View>
-  );
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Add" component={Add} />
+                <Stack.Screen name="Edit" component={Edit} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 };
-
-// Helper to Get Element Color
-const getElementColor = (element) => {
-  switch (element) {
-    case 'Fire 🔥':
-      return '#FF6347'; // Tomato Red
-    case 'Lightning ⚡':
-      return '#FFD700'; // Gold
-    case 'Fighting 🥊':
-      return '#8B4513'; // Saddle Brown
-    default:
-      return '#D3D3D3'; // Light Gray
-  }
-};
-
-// Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#F5F5F5',
-  },
-  header: {
-    padding: 10,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFF',
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#CCC',
-  },
-  name: {
-    flex: 1,
-    fontSize: 16,
-  },
-  image: {
-    width: 200,
-    height: 300,
-    resizeMode: 'contain',
-  },
-});
 
 export default App;
+
+
 
 
 
